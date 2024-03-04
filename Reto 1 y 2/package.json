@@ -1,0 +1,24 @@
+{
+  "name": "reto1",
+  "version": "1.0.0",
+  "description": "dependencias reto1y2",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebasarias17/sariasu-st0263.git"
+  },
+  "author": "Jeronimo Gonzalez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebasarias17/sariasu-st0263/issues"
+  },
+  "homepage": "https://github.com/JeronimoGg/sariasu-st0263#readme",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "express": "^4.18.3"
+  }
+}
