@@ -40,9 +40,8 @@ def juntar_archivo(archivos, ruta_unificado):
             archivos_content += fragmento
         else:
             archivos_content += fragmento.encode('utf-8')
-    with open('archivo_nuevo.docx', 'wb') as f:
+    with open(os.path.join(ruta_unificado,'archivo_nuevo.docx'), 'wb') as f:
         f.write(archivos_content)
-
 
 
 # Uso de la función
