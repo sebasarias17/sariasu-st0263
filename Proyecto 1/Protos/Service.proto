@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+service ClientCallService{
+rpc sendFile(File) returns(Request) {}
+
+}
+
+message File {
+    bytes content = 1;
+}
+
+message Request {
+    string requestFile = 2;
+}
