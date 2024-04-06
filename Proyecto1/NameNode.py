@@ -17,6 +17,10 @@ class ClientCallService(Service_pb2_grpc.ClientCallServiceServicer):
     
     def ListStoredChunks(self, request, context):
         return Service_pb2.ChunkList(chunks=list(self.chunks.keys()))
+    
+#    def GetChunkDetails(self, request, context):
+#        chunk_info = {key: len(value) for key, value in self.chunks.items()}
+#        return Service_pb2.ChunkDetails(chunkInfo=chunk_info)
 
 def iniciar_servidor():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10), options=[

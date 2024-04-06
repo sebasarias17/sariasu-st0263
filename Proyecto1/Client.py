@@ -42,6 +42,11 @@ with grpc.insecure_channel('localhost:50051', options=[
     stored_chunks = stub.ListStoredChunks(Service_pb2.Empty())
     print("Chunks almacenados:", stored_chunks.chunks)
 
+#    chunk_details = stub.GetChunkDetails(Service_pb2.Empty())
+#    for chunk_key, size in chunk_details.chunkInfo.items(): 
+#        print(f"Chunk: {chunk_key}, Tamaño: {size} bytes")
+
+
 # def juntar_archivo(archivos, carpeta_uni = 'Archivos Unificados'):
 
 #     if not os.path.exists(carpeta_uni):
