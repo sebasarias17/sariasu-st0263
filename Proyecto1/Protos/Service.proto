@@ -2,7 +2,8 @@ syntax = "proto3";
 
 service ClientCallService{
     rpc sendPartitionFile(File) returns(Request) {}
-    rpc ListStoredChunks(Empty) returns(ChunkList) {}  // Nuevo servicio RPC
+    rpc ListStoredChunks(Empty) returns(ChunkList) {}
+    rpc GetChunkDetails(Empty) returns(ChunkDetails) {}
 }
 
 message File {
@@ -15,8 +16,14 @@ message Request {
     string requestFile = 1;
 }
 
-message Empty {}
+message Empty {
+    
+}
 
 message ChunkList {
     repeated string chunks = 1;
+}
+
+message ChunkDetails {
+    map<string, int32> chunkInfo = 1;
 }
