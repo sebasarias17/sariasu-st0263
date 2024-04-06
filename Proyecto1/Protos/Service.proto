@@ -1,14 +1,22 @@
 syntax = "proto3";
 
 service ClientCallService{
-rpc sendPartitionFile(File) returns(Request) {}
-
+    rpc sendPartitionFile(File) returns(Request) {}
+    rpc ListStoredChunks(Empty) returns(ChunkList) {}  // Nuevo servicio RPC
 }
 
 message File {
-    repeated bytes content = 1;
+    bytes content = 1;
+    string fileName = 2;
+    int32 partNumber = 3;
 }
 
 message Request {
-    string requestFile = 2;
+    string requestFile = 1;
+}
+
+message Empty {}
+
+message ChunkList {
+    repeated string chunks = 1;
 }
