@@ -30,7 +30,7 @@ with grpc.insecure_channel('localhost:50051', options=[
     ]) as channel:
 
     stub = Service_pb2_grpc.ClientCallServiceStub(channel)
-    chunks, nombre_archivo = dividir_archivo('./image.jpg')
+    chunks, nombre_archivo = dividir_archivo('./Archivo1.txt')
     for chunk, numero_parte in chunks:
         response = stub.sendPartitionFile(Service_pb2.File(
             content=chunk,
@@ -41,6 +41,32 @@ with grpc.insecure_channel('localhost:50051', options=[
 
     stored_chunks = stub.ListStoredChunks(Service_pb2.Empty())
     print("Chunks almacenados:", stored_chunks.chunks)
+
+
+def enviar_chunk_a_datanode(chunk, datanode_address, file_name, part_number):
+    with grpc.insecure_channel(datanode_address,options=[
+    ('grpc.max_send_message_length', 100 * 1024 * 1024),
+    ('grpc.max_receive_message_length', 100 * 1024 * 1024)
+    ] ) as channel:
+        stub = Service_pb2_grpc.DataNodeServiceStub(channel)
+        response = stub.StoreChunk(Service_pb2.Chunk(
+            content=chunk,
+            fileName=file_name,
+            partNumber=part_number
+        ))
+        return response
+
+# Lista de DataNodes
+data_nodes = ["localhost:50052", "localhost:50053", "localhost:50054"]
+chunks, nombre_archivo = dividir_archivo('./Archivo1.txt')
+
+# Envío de chunks utilizando Round-Robin
+for i, chunk in enumerate(chunks):
+    datanode_address = data_nodes[i % len(data_nodes)]
+    response = enviar_chunk_a_datanode(chunk[0], datanode_address, nombre_archivo, chunk[1])
+    print(f"Chunk {i} enviado a {datanode_address}: {response.message}")
+
+
 
 #    chunk_details = stub.GetChunkDetails(Service_pb2.Empty())
 #    for chunk_key, size in chunk_details.chunkInfo.items(): 
