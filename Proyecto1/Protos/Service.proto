@@ -1,29 +1,37 @@
 syntax = "proto3";
 
-service ClientCallService{
-    rpc sendPartitionFile(File) returns(Request) {}
-    rpc ListStoredChunks(Empty) returns(ChunkList) {}
-    rpc GetChunkDetails(Empty) returns(ChunkDetails) {}
+service DataNodeService {
+    rpc StoreChunk(Chunk) returns(StoreChunkResponse) {}
+    rpc ListStoredChunks(Empty) returns (ChunkList) {}
 }
 
-message File {
-    bytes content = 1;
-    string fileName = 2;
-    int32 partNumber = 3;
+service NameNodeService {
+    rpc ListAllStoredChunks(Empty) returns (AllChunksResponse) {}
 }
 
-message Request {
-    string requestFile = 1;
+message Chunk {
+    string fileName = 1;
+    int32 partNumber = 2;
+    bytes content = 3;
 }
 
-message Empty {
-    
+message StoreChunkResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message AllChunksResponse {
+    map<string, ChunkNames> chunks = 1;
+}
+
+message ChunkNames {
+    repeated string chunkName = 1;
 }
 
 message ChunkList {
-    repeated string chunks = 1;
+    repeated string chunkNames = 1;
 }
 
-message ChunkDetails {
-    map<string, int32> chunkInfo = 1;
+message Empty {
+
 }

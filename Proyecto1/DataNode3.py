@@ -12,6 +12,9 @@ class DataNodeService(Service_pb2_grpc.DataNodeServiceServicer):
         chunk_key = f"{request.fileName}_part_{request.partNumber}"
         self.stored_chunks[chunk_key] = request.content
         return Service_pb2.StoreChunkResponse(success=True, message="Chunk almacenado en memoria.") 
+    
+    def ListStoredChunks(self, request, context):
+        return Service_pb2.ChunkList(chunkNames=list(self.stored_chunks.keys()))
 
 def iniciar_servidor_datanode():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10), options=[
