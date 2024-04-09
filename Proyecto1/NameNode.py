@@ -38,7 +38,7 @@ def main():
 def iniciar_servidor_namenode():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     Service_pb2_grpc.add_NameNodeServiceServicer_to_server(NameNodeService(), server)
-    server.add_insecure_port('[::]:50055')  # Elige un puerto adecuado para el NameNode
+    server.add_insecure_port('[::]:50055') 
     print("NameNode ejecutándose en el puerto 50055...")
     server.start()
     server.wait_for_termination()
