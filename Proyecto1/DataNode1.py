@@ -15,6 +15,16 @@ class DataNodeService(Service_pb2_grpc.DataNodeServiceServicer):
     
     def ListStoredChunks(self, request, context):
         return Service_pb2.ChunkList(chunkNames=list(self.stored_chunks.keys()))
+    
+    def GetChunk(self, request, context):
+        chunk_key = f"{request.fileName}_part_{request.partNumber}"
+        if chunk_key in self.stored_chunks:
+            return Service_pb2.ChunkResponse(content=self.stored_chunks[chunk_key])
+        else:
+            # Manejo de errores, por ejemplo, si el chunk no existe
+            context.set_code(grpc.StatusCode.NOT_FOUND)
+            context.set_details('Chunk no encontrado')
+            return Service_pb2.ChunkResponse()
 
 def iniciar_servidor_datanode():
     server = grpc.server(futures.ThreadPoolExecutor(max_workers=10), options=[

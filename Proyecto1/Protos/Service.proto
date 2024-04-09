@@ -3,6 +3,7 @@ syntax = "proto3";
 service DataNodeService {
     rpc StoreChunk(Chunk) returns(StoreChunkResponse) {}
     rpc ListStoredChunks(Empty) returns (ChunkList) {}
+    rpc GetChunk(ChunkInfo) returns (ChunkResponse) {}
 }
 
 service NameNodeService {
@@ -30,6 +31,15 @@ message ChunkNames {
 
 message ChunkList {
     repeated string chunkNames = 1;
+}
+
+message ChunkInfo {
+    string fileName = 1;
+    int32 partNumber = 2;
+}
+
+message ChunkResponse {
+    bytes content = 1;
 }
 
 message Empty {
