@@ -69,7 +69,7 @@ def recuperar_chunk_de_datanode(datanode_address, file_name, part_number):
 def unificar_chunks(chunks_recuperados, ruta_salida):
     directorio = os.path.dirname(ruta_salida)
     if not os.path.exists(directorio):
-        os.makedirs(directorio)  # Crea el directorio si no existe
+        os.makedirs(directorio)
 
     with open(ruta_salida, 'wb') as archivo_salida:
         for _, chunk in sorted(chunks_recuperados.items()):
@@ -144,32 +144,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-#    chunk_details = stub.GetChunkDetails(Service_pb2.Empty())
-#    for chunk_key, size in chunk_details.chunkInfo.items(): 
-#        print(f"Chunk: {chunk_key}, Tamaño: {size} bytes")
-
-
-# def juntar_archivo(archivos, carpeta_uni = 'Archivos Unificados'):
-
-#     if not os.path.exists(carpeta_uni):
-#         os.makedirs(carpeta_uni)
-
-#     archivos_content = b""
-#     for ruta_archivo in archivos:
-#         try:
-#             with open(ruta_archivo, 'rb') as archivo:
-#                 fragmento = archivo.read()
-#                 archivos_content += fragmento
-#         except IOError as error:
-#             print(f'Error al leer el archivo {ruta_archivo}: {error}')
-#             return
-    
-#     ruta_salida = os.path.join(carpeta_uni, 'archivo_nuevo.docx')
-#     with open(ruta_salida, 'wb') as f:
-#         f.write(archivos_content)
-
-
-# Uso de la función
-# array = dividir_archivo(RUTA_ARCHIVO)
-# juntar_archivo(array)
