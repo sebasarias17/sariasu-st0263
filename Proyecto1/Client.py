@@ -26,8 +26,6 @@ def dividir_archivo(ruta_archivo):
         print(f'Error: {error}')
         return [], nombre_archivo
 
-            
-
 def enviar_chunk_a_datanode(chunk, file_name, part_number, data_nodes):
     for i in range(REPLICATION_FACTOR):
         datanode_address = data_nodes[i % len(data_nodes)]  # Selecciona el DataNode
@@ -53,6 +51,52 @@ def consultar_chunks_en_namenode(namenode_address):
          stub = Service_pb2_grpc.NameNodeServiceStub(channel)
          response = stub.ListAllStoredChunks(Service_pb2.Empty())
          return response.chunks
+     
+def recuperar_chunk_de_datanode(datanode_address, file_name, part_number):
+    with grpc.insecure_channel(datanode_address, options=[
+        ('grpc.max_send_message_length', 100 * 1024 * 1024),
+        ('grpc.max_receive_message_length', 100 * 1024 * 1024)
+    ]) as channel:
+        stub = Service_pb2_grpc.DataNodeServiceStub(channel)
+        chunk_info = Service_pb2.ChunkInfo(fileName=file_name, partNumber=part_number)
+        try:
+            response = stub.GetChunk(chunk_info)
+            return response.content if response else None
+        except grpc.RpcError as e:
+            print(f"Error al recuperar el chunk: {e}")
+            return None
+
+def unificar_chunks(chunks_recuperados, ruta_salida):
+    directorio = os.path.dirname(ruta_salida)
+    if not os.path.exists(directorio):
+        os.makedirs(directorio)  # Crea el directorio si no existe
+
+    with open(ruta_salida, 'wb') as archivo_salida:
+        for _, chunk in sorted(chunks_recuperados.items()):
+            if chunk is not None:
+                archivo_salida.write(chunk)
+            else:
+                print("Advertencia: Se encontró un chunk faltante.")
+    
+def reconstruir_archivo(file_name, chunks_info):
+    chunks_recuperados = {}
+    for datanode, chunk_names in chunks_info.items():
+        for chunk_name in chunk_names.chunkName:
+            if file_name in chunk_name:
+                _, part_number_str = chunk_name.rsplit('_', 1)
+                part_number = int(part_number_str)
+                
+                if part_number not in chunks_recuperados:
+                    chunk = recuperar_chunk_de_datanode(datanode, file_name, part_number)
+                    if chunk is not None:
+                        chunks_recuperados[part_number] = chunk
+                    else:
+                        print(f"No se pudo recuperar el chunk {part_number} desde {datanode}")
+
+    # Unificar y guardar el archivo
+    ruta_salida = os.path.join('ruta_para_guardar_archivos', file_name)
+    unificar_chunks(chunks_recuperados, ruta_salida)
+
 
 def main():
     data_nodes = ["localhost:50052", "localhost:50053", "localhost:50054"]
@@ -61,7 +105,8 @@ def main():
         print("\nSeleccione una acción:")
         print("1. Subir un archivo.")
         print("2. Listar chunks almacenados.")
-        print("3. Salir.\n")
+        print("3. Reconstruir un archivo.")
+        print("4. Salir.\n")
 
         choice = input("Ingrese el número de la acción: ")
 
@@ -84,8 +129,13 @@ def main():
                 print(f"DataNode {datanode} tiene los siguientes chunks:")
                 for chunk_name in chunk_names.chunkName:
                     print(f" - {chunk_name}")
-
+            
         elif choice == '3':
+            file_name = input("Ingrese el nombre del archivo a reconstruir: ")
+            chunks_info = consultar_chunks_en_namenode('localhost:50055')
+            reconstruir_archivo(file_name, chunks_info)
+
+        elif choice == '4':
             print("Saliendo...")
             break
 
