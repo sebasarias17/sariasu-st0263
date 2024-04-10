@@ -5,7 +5,7 @@ from concurrent import futures
 
 class NameNodeService(Service_pb2_grpc.NameNodeServiceServicer):
     def ListAllStoredChunks(self, request, context):
-        data_nodes = ["54.87.188.179:50052", "44.211.137.11:50053", "34.204.7.252:50054"]
+        data_nodes = ["18.207.244.129:50052", "34.201.127.254:50053", "3.88.60.46:50054"]
         all_chunks = {}
 
         for datanode in data_nodes:
@@ -22,7 +22,7 @@ def obtener_chunks_de_datanode(datanode_address):
         return response.chunkNames    
 
 def main():
-    data_nodes = ["54.87.188.179:50052", "44.211.137.11:50053", "34.204.7.252:50054"]
+    data_nodes = ["18.207.244.129:50052", "34.201.127.254:50053", "3.88.60.46:50054"]
     todos_los_chunks = {}
 
     for datanode in data_nodes:
