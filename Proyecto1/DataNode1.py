@@ -32,7 +32,7 @@ def iniciar_servidor_datanode():
         ('grpc.max_receive_message_length', 100 * 1024 * 1024)
     ])
     Service_pb2_grpc.add_DataNodeServiceServicer_to_server(DataNodeService(), server)
-    server.add_insecure_port('[0.0.0.0:50052')  # El puerto puede variar para cada DataNode
+    server.add_insecure_port('0.0.0.0:50052')  # El puerto puede variar para cada DataNode
     print("DataNode 1 ejecutándose")
     server.start()
     server.wait_for_termination()
