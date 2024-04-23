@@ -99,7 +99,7 @@ def reconstruir_archivo(file_name, chunks_info):
 
 
 def main():
-    data_nodes = ["54.234.28.255:50052", "54.147.25.18:50053", "107.22.126.38:50054"]
+    data_nodes = ["18.234.85.50:50052", "54.226.32.202:50053", "34.227.49.243:50054"]
 
     while True:
         print("\nSeleccione una acción:")
@@ -124,7 +124,7 @@ def main():
 
         elif choice == '2':
             # La lógica para listar los chunks almacenados en los DataNodes
-            chunks_info = consultar_chunks_en_namenode('3.94.192.188:50055')
+            chunks_info = consultar_chunks_en_namenode('18.212.76.151:50055')
             for datanode, chunk_names in chunks_info.items():
                 print(f"DataNode {datanode} tiene los siguientes chunks:")
                 for chunk_name in chunk_names.chunkName:
@@ -132,7 +132,7 @@ def main():
             
         elif choice == '3':
             file_name = input("Ingrese el nombre del archivo a reconstruir: ")
-            chunks_info = consultar_chunks_en_namenode('3.94.192.188:50055')
+            chunks_info = consultar_chunks_en_namenode('18.212.76.151:50055')
             reconstruir_archivo(file_name, chunks_info)
 
         elif choice == '4':
