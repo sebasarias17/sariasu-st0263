@@ -65,7 +65,7 @@ def recuperar_chunk_de_datanode(datanode_address, file_name, part_number):
         except grpc.RpcError as e:
             print(f"Error al recuperar el chunk: {e}")
             return None
-
+        
 def unificar_chunks(chunks_recuperados, ruta_salida):
     directorio = os.path.dirname(ruta_salida)
     if not os.path.exists(directorio):
@@ -97,7 +97,6 @@ def reconstruir_archivo(file_name, chunks_info):
     ruta_salida = os.path.join('ruta_para_guardar_archivos', file_name)
     unificar_chunks(chunks_recuperados, ruta_salida)
 
-
 def main():
     data_nodes = ["18.234.85.50:50052", "54.226.32.202:50053", "34.227.49.243:50054"]
 
@@ -120,7 +119,6 @@ def main():
                     data_nodes = data_nodes[REPLICATION_FACTOR:] + data_nodes[:REPLICATION_FACTOR]  # Rota después de replicar cada chunk
             else:
                 print(f"Error: Se requieren al menos {REPLICATION_FACTOR} DataNodes para la replicación.")
-
 
         elif choice == '2':
             # La lógica para listar los chunks almacenados en los DataNodes
