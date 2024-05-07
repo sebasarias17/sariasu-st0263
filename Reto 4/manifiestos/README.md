@@ -17,5 +17,6 @@ Para el desarrollo se utilizó el laboratorio de AWS Academy específicamente pa
 - MySQL: versión 5.7
 - Kubernetes: versión 1.9
 - kubectl: herramienta de línea de comando para la gestión del clúster de Kubernetes
+- CLI de aws
 
 Estas herramientas y versiones proporcionan una base sólida para la gestión y el despliegue eficiente de aplicaciones dentro de un entorno de Kubernetes, aprovechando las ventajas de la escalabilidad y la gestión de infraestructura que ofrece AWS EKS.
