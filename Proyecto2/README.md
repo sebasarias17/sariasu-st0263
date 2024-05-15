@@ -47,10 +47,12 @@ Dominio del proyecto:
 
 ## como se lanza el servidor.
 El servidor se lanza corriendo todos los manifiestos con el comando 
+   - microk8s kubectl apply -f "nombre del archivo"
+      
 ## Mini guia de como un usuario utilizaría el software o la aplicación
-  - **Acceso a la Página:** El usuario accede al sitio web a través de una URL configurada, como http://tu-dominio.com
+  - **Acceso a la Página:** El usuario accede al sitio web a través de una URL configurada, como [http://tu-dominio.com](http://jgonzalez.online/)
   - **Interfaz de WordPress:** Una vez en el sitio, el usuario puede interactuar con la interfaz estándar de WordPress, que permite ver publicaciones y páginas.
-  - **Administración:** Para administrar el sitio, el usuario puede iniciar sesión en el panel de administración de WordPress (https://tu-dominio.com/wp-admin) usando las credenciales proporcionadas durante la instalación o configuración.
+  - **Administración:** Para administrar el sitio, el usuario puede iniciar sesión en el panel de administración de WordPress [(https://tu-dominio.com/wp-admin)](http://jgonzalez.online/wpadmin) usando las credenciales proporcionadas durante la instalación o configuración.
   - **Personalización y Gestión de Contenido:** Dentro del panel de administración, el usuario puede escribir nuevas publicaciones, añadir páginas, instalar temas y plugins, y configurar ajustes para personalizar el sitio. 
 
 # 5. otra información que considere relevante para esta actividad.
