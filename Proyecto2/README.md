@@ -23,9 +23,7 @@ En cuanto a estos aspectos implementamos:
    - **Automatización de DevOps:** Se utilizaron archivos YAML para automatizar el despliegue de aplicaciones y servicios en Kubernetes, lo cual es una práctica clave en DevOps.
    - **Alta disponibilidad y escalabilidad:** Se configuraron réplicas para los deployments de WordPress y MySQL, además de utilizar persistent volumes y services que ayudan a mantener la disponibilidad y escalabilidad del proyecto.
 ----------------------------
-# 3. Descripción del ambiente de desarrollo y técnico: lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
-
-## como se compila y ejecuta.
+# 3. Descripción del ambiente de desarrollo y técnico:
 
 ## detalles del desarrollo.
    - **Lenguaje de Programación:** PHP, típicamente la última versión estable o la que sea compatible con la versión de WordPress utilizada.
@@ -40,19 +38,15 @@ En cuanto a estos aspectos implementamos:
    - **MySQL:** Empleando una imagen de contenedor, por ejemplo, mysql:5.7, configurada para alta disponibilidad.
    - **Kubernetes:** Utilizando MicroK8s como la plataforma de orquestación de contenedores, configurada para soportar escalabilidad y alta disponibilidad.
    - **Almacenamiento:** PV y PVC en Kubernetes, utilizando NFS para almacenamiento compartido y persistente.
-
-## descripción y como se configura los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
-
-## opcionalmente - si quiere mostrar resultados o pantallazos 
----------------------------
-# 4. Descripción del ambiente de EJECUCIÓN (en producción) lenguaje de programación, librerias, paquetes, etc, con sus numeros de versiones.
+     
+# 4. Descripción del ambiente de EJECUCIÓN
 
 # IP o nombres de dominio en nube o en la máquina servidor.
-
-## descripción y como se configura los parámetros del proyecto (ej: ip, puertos, conexión a bases de datos, variables de ambiente, parámetros, etc)
+Dominio del proyecto:
+   - [jgonzalez.online](http://jgonzalez.online/)
 
 ## como se lanza el servidor.
-
+El servidor se lanza corriendo todos los manifiestos con el comando 
 ## Mini guia de como un usuario utilizaría el software o la aplicación
   - **Acceso a la Página:** El usuario accede al sitio web a través de una URL configurada, como http://tu-dominio.com
   - **Interfaz de WordPress:** Una vez en el sitio, el usuario puede interactuar con la interfaz estándar de WordPress, que permite ver publicaciones y páginas.
@@ -62,6 +56,4 @@ En cuanto a estos aspectos implementamos:
 # 5. otra información que considere relevante para esta actividad.
 
 # Referencias:
-## sitio1-url 
-## sitio2-url
-## url de donde tomo info para desarrollar este proyecto
+## https://microk8s.io/tutorials
